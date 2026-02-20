@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths:
-      - 'backend/react-app/**'
+      - 'frontend/react-app/**'
 
 jobs:
   deploy:
