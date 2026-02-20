@@ -1,0 +1,22 @@
+name: Backend Deploy
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Pull code to Runner
+        uses: actions/checkout@v3
+      - name: Login to EC2
+        uses: appleboy/ssh-action@v0.1.10
+        with: 
+          host: ${{secrets.EC2_HOST_BACKEND}}
+          username: ${{secrets.EC2_USER}}
+          key: ${{secrets.EC2_SSH_KEY}}
+          script: |
+            cd /home/ubuntu/FullStack_prac
+            git pull origin main
+            docker stop backend || true
+            docker rm backend || true
+            docker rmi backend || true
+            docker build -t backend -f backend/dockerfile backend/
+            docker run -d -p 3000:3000 --name backend backend
