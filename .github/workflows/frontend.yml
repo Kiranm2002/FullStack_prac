@@ -13,9 +13,9 @@ jobs:
   
     steps:
       - name: Pull code to runner
-        uses: actions/checkout
+        uses: actions/checkout@v3
       - name: Login to EC2
-        uses: appleboy/ssh-action
+        uses: appleboy/ssh-action@v0.1.10
         with:
           host: ${{secrets.EC2_FRONTEND_HOST}}
           username: ${{secrets.EC2_USER}}
