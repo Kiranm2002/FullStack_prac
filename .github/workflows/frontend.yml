@@ -1,0 +1,32 @@
+name: Frontend CI/CD
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'frontend/react-app/**'
+
+jobs:
+  Deploy:
+    runs-on: ubuntu-latest
+  
+  steps:
+    - name: Pull code to runner
+      uses: actions/checkout
+    - name: Login to EC2
+      uses: appleboy/ssh-action
+      with:
+        host: ${{secrets.EC2_FRONTEND_HOST}}
+        username: ${{secrets.EC2_USER}}
+        key: ${{secrets.EC2_SSH_KEY}}
+      
+        script: |
+          cd /home/ubuntu/FullStack_prac
+          git pull origin main
+          docker stop frontend || true
+          docker rm frontend || true
+          docker rmi frontend || true
+          docker build -t frontend -f frontend/react-app/dockerfile frontend/react-app/
+          docker run -d -p 80:80 --name frontend frontend
+
