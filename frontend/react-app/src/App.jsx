@@ -62,7 +62,7 @@ function App() {
         <label>Full Name</label>
         <input type="text" name="fullname" required onChange={handleChange} />
 
-        <label>Email Addrress</label>
+        <label>Email </label>
         <input type="email" name="email" required onChange={handleChange} />
 
         <label>Phone Number</label>
@@ -91,7 +91,7 @@ function App() {
           </label>
         </div>
 
-        <label>DOB</label>
+        <label>Date of Birth</label>
         <input type="date" name="dob" required onChange={handleChange} />
 
         <label>Address</label>
